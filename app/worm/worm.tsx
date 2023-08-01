@@ -1,5 +1,5 @@
 import styles from "./worm-game.module.css";
-import WormProps from "@/types";
+import { WormProps } from "@/types";
 import { useEffect, useState, useRef } from "react";
 import { transform } from "typescript";
 
@@ -9,7 +9,7 @@ export default function Worm({ mouseCoordinates, length }: WormProps) {
   ); //this represents the s
   const [wormCoordinates, setWormCoordinates] = useState({
     x: 0,
-    y: window.innerHeight / 2,
+    y: 0,
   });
 
   const [rotationAngle, setRotationAngle] = useState(0);
@@ -67,6 +67,7 @@ export default function Worm({ mouseCoordinates, length }: WormProps) {
         return prevCoordinates[i - 1];
       }
     });
+
     setWormBodyCoordinates(newBodyCoordinates);
     return { x: newX, y: newY };
   };
@@ -89,18 +90,18 @@ export default function Worm({ mouseCoordinates, length }: WormProps) {
   }, [wormCoordinates]);
 
   const wormLeft = wormCoordinates.x + "px";
-  const wormTop = wormCoordinates.y + "px";
+  const wormTop = wormCoordinates.y - window.innerHeight / 2 + "px";
 
   return (
-    <div
-      className={styles.worm}
-      style={{
-        left: wormLeft,
-        top: wormTop,
-        transform: `rotate(${rotationAngle + 90}deg)`,
-      }}
-    >
-      <div className={styles.head}>
+    <div className={styles.worm}>
+      <div
+        className={styles.head}
+        style={{
+          left: wormLeft,
+          top: wormTop,
+          transform: `rotate(${rotationAngle + 90}deg)`,
+        }}
+      >
         <div
           className={`${styles.eye}`}
           style={{ transform: `rotate(${rotationAngle + 90}deg)` }}
@@ -119,8 +120,8 @@ export default function Worm({ mouseCoordinates, length }: WormProps) {
           key={i}
           className={styles.body}
           style={{
-            top: wormCoordinates.y - wormBodyCoordinates[i].y + "px",
-            left: wormCoordinates.x - wormBodyCoordinates[i].x + "px",
+            top: wormBodyCoordinates[i].y - window.innerHeight / 2 + "px",
+            left: wormBodyCoordinates[i].x + "px",
           }}
         ></div>
       ))}

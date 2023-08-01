@@ -1,10 +1,10 @@
 "use client";
 import styles from "./worm-game.module.css";
 import Worm from "./worm";
-
+import Food from "./food";
 import { useEffect, useState } from "react";
 
-const INITIAL_SNAKE_LENGTH = 9;
+const INITIAL_SNAKE_LENGTH = 90;
 export default function Home() {
   const [length, setLength] = useState(INITIAL_SNAKE_LENGTH); //this represents the score of the worm
   const [size, setSize] = useState(-1.0); //this represents the size of the worm in 10^-10 meters
@@ -35,6 +35,7 @@ export default function Home() {
           </button>
         </section>
       )}
+      <Food type='atom' />
     </main>
   );
 }
