@@ -1,4 +1,5 @@
 "use client";
+
 import styles from "./home-page.module.css";
 import Worm from "./worm";
 import Food from "./food";
@@ -17,6 +18,14 @@ export default function Home() {
 
   return (
     <main className={styles.main} onMouseMove={(e) => handleMouseMove(e)}>
+      <a
+        className="container"
+        href=" https://github.com/mramazzini/matteo-game"
+        target="_blank"
+      >
+        <h2> Check out the source code here!</h2>
+        <img className={"github"} />
+      </a>
       <div
         className={`${styles.current_size} ${size < 0 ? styles.hidden : ""}`}
       >
