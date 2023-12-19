@@ -1,5 +1,4 @@
-import styles from "./worm-game.module.css";
-
+import styles from "./home-page.module.css";
 import { useEffect, useState, useRef } from "react";
 import { transform } from "typescript";
 import { foodProps } from "@/types";

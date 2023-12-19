@@ -1,25 +1,40 @@
-import Image from "next/image";
+"use client";
 import styles from "./home-page.module.css";
+import Worm from "./worm";
+import Food from "./food";
+import { useEffect, useState } from "react";
 
+const INITIAL_SNAKE_LENGTH = 90;
 export default function Home() {
+  const [length, setLength] = useState(INITIAL_SNAKE_LENGTH); //this represents the score of the worm
+  const [size, setSize] = useState(-1.0); //this represents the size of the worm in 10^-10 meters
+  const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
+  const MOUSE_OFFSET = 45;
+  const handleMouseMove = (e: any) => {
+    const { pageX, pageY } = e;
+    setMouseCoordinates({ x: pageX - MOUSE_OFFSET, y: pageY - MOUSE_OFFSET });
+  };
+
   return (
-    <main className={styles.main}>
-      <h1 className={styles.title}>
-        <div className={styles.name_left}>Matteo</div>.
-        <div className={styles.name_right}>game</div>
-      </h1>
-      <h2 className={styles.subtitle}> I make games. :)</h2>
-      <div className={styles.grid}>
-        <a href='/worm' className={styles.card}>
-          <h3>Worm &rarr;</h3>
-        </a>
-        <a href='/snake' className={styles.card}>
-          <h3>Snake &rarr;</h3>
-        </a>
-        <a href='/pong' className={styles.card}>
-          <h3>Pong &rarr;</h3>
-        </a>
+    <main className={styles.main} onMouseMove={(e) => handleMouseMove(e)}>
+      <div
+        className={`${styles.current_size} ${size < 0 ? styles.hidden : ""}`}
+      >
+        {/* {parseFloat((size * 10 ** -10).toFixed(11)).toExponential()} meters */}
       </div>
+      {size >= 0 ? (
+        <Worm mouseCoordinates={mouseCoordinates} length={length} />
+      ) : (
+        <section className={styles.menu}>
+          <h1>You are a worm.</h1>
+
+          <h1>Move your mouse to move the worm.</h1>
+          <button onClick={() => setSize(0.1)} className={styles.title}>
+            Click to begin
+          </button>
+        </section>
+      )}
+      <Food type="atom" />
     </main>
   );
 }

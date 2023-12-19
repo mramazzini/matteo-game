@@ -1,4 +1,4 @@
-import styles from "./worm-game.module.css";
+import styles from "./home-page.module.css";
 
 import { useEffect, useState, useRef, use } from "react";
 
@@ -16,9 +16,9 @@ export default function Atom() {
       className={styles.atom}
       style={{ transform: `rotate(${rotationAngle}deg)` }}
     >
-      <div className={styles.nucleus}></div>
+      {/* <div className={styles.nucleus}></div>
       <div className={styles.orbit} />
-      <div className={styles.electron}></div>
+      <div className={styles.electron}></div> */}
     </div>
   );
 }
